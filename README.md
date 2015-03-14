@@ -1,6 +1,4 @@
-ionic-angular-cordova-seed
-==========================
-
-The perfect starting point for an Ionic project.
-
-- [Ionic Tutorials](http://ionicframework.com/tutorials/)
+###个人项目
+========
+用于练习ionic+angular
+钓场查询

@@ -36,6 +36,15 @@ ionicApp.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state("app.music",{
+    	url:"/music",
+    	views:{
+    		'menuContent':{
+    			templateUrl:"templates/music.html",
+    			controller:"MusicCtrl"
+    		}
+    	}
+    })
     $urlRouterProvider.otherwise('/app/home');
 });
 
@@ -151,3 +160,114 @@ ionicApp.controller("SearchCtrl",function($scope,$http,$timeout){
     }
 	vm.searchData=[]
 })
+
+
+// 听音乐
+ionicApp.controller("MusicCtrl",function($scope){
+	// 歌曲列表
+	$scope.MusicList=[{
+		title:"画沙",
+		source:"music/pm.mp3",
+		singer:"袁咏琳",
+		specialPic:"img/1.jpg"
+	},{
+		title:"十三号星期舞",
+		source:"music/pm.mp3",
+		singer:"蔡依林",
+		specialPic:"img/1.jpg"
+	},{
+		title:"泡沫",
+		source:"music/pm.mp3",
+		singer:"蔡依林",
+		specialPic:"img/1.jpg"
+	},{
+		title:"느낌 아니까",
+		source:"music/pm.mp3",
+		singer:"T-ara",
+		specialPic:"img/1.jpg"
+	},{
+		title:"GALAXY SUPERNOVA",
+		source:"music/pm.mp3",
+		singer:"少女时代",
+		specialPic:"img/1.jpg"
+	},{
+		title:"나 어떡해",
+		source:"music/pm.mp3",
+		singer:"T-ara",
+		specialPic:"img/1.jpg"
+	},{
+		title:"龙卷风",
+		source:"music/pm.mp3",
+		singer:"周杰伦",
+		specialPic:"img/1.jpg"
+	},{
+		title:"十三号星期舞",
+		source:"music/pm.mp3",
+		singer:"蔡依林",
+		specialPic:"img/1.jpg"
+	},{
+		title:"泡沫",
+		source:"music/pm.mp3",
+		singer:"蔡依林",
+		specialPic:"img/1.jpg"
+	},{
+		title:"느낌 아니까",
+		source:"music/pm.mp3",
+		singer:"T-ara",
+		specialPic:"img/1.jpg"
+	},{
+		title:"GALAXY SUPERNOVA",
+		source:"music/pm.mp3",
+		singer:"少女时代",
+		specialPic:"img/1.jpg"
+	}]
+	// 当前正在播放的歌曲
+	$scope.currentSong={
+		song:$scope.MusicList[0],
+		currTime:0,
+		totalTime:0,
+		progress:0,
+		playing:false
+	};
+	var audio=document.getElementById("audio");
+	$scope.play=function(){
+		audio.play();
+		$scope.currentSong.playing=true;
+	}
+	$scope.pause=function(){
+		audio.pause();
+		$scope.currentSong.playing=false;
+	}
+	audio.addEventListener("loadedmetadata",function(e){
+		$scope.currentSong.totalTime=audio.duration;
+	},false);
+	audio.addEventListener("timeupdate",function(e){
+		// console.log(this.currentTime);
+		$scope.$apply(function() {
+			$scope.currentSong.currTime=audio.currentTime;
+			$scope.currentSong.progress=$scope.currentSong.currTime/$scope.currentSong.totalTime;
+		})
+		
+	},false)
+	
+})
+.filter('formattime', [
+	function() {
+		return function(input) {
+			input = parseInt(input)||0;
+			var min = 0;
+			var sec = 0;
+			if (input > 60) {
+				min = parseInt(input / 60);
+				sec = input - 60 * min;
+				min = min >= 10 ? min : '0' + min;
+				sec = sec >= 10 ? sec : '0' + sec;
+			}
+			else {
+				min = '00';
+				sec = input >= 10 ? input : '0' + input;
+			}
+			return min + ':' + sec;
+		}
+	}
+])

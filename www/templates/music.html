@@ -1,0 +1,65 @@
+<ion-view class="music-bg">
+    <div class="container">
+    	<ion-slide-box class="slide-box">
+          <ion-slide>
+          	<ion-content>
+	          	<div class="music-list-box">
+	          		<div class="list">
+	          			<div ng-repeat="song in MusicList" class="item item-icon-right pading-artistic color-light">
+			                <i class="icon ion-ios-musical-note"></i>
+			                <span class="artistic">{{song.singer}}</span>
+			                {{song.title}}
+			            </div>
+	          		</div>
+	          	</div>
+          	<ion-content>
+          </ion-slide>
+          <!-- 正在播放的歌曲 -->
+          <ion-slide>
+          	<ion-content>
+          		<div class="current-music-item txt-center">
+          			<h3 class="color-light">{{currentSong.song.title}}</h3>
+          			<h5 class="color-light">—{{currentSong.song.singer}}—</h5>
+          			<div class="special-picture">
+          				<img ng-class="{true:'run',false:'pause'}[currentSong.playing]" ng-src="{{currentSong.song.specialPic}}">
+          			</div>
+          		</div>
+          	<ion-content>
+          </ion-slide>
+        </ion-slide-box>
+    </div>
+    <div class="music-footer">
+    	<div class="music-prog-bar">
+    		<span class="current-time">{{currentSong.currTime|formattime}}</span>
+    		<div class="progress-bar">
+    			<span class="current-line" style="width:{{currentSong.progress*100}}%"></span>
+    			<span class="time-handle"  style="left:{{currentSong.progress*100}}%"></span>
+    		</div>
+    		<span class="total-time">{{currentSong.totalTime|formattime}}</span>
+		</div>
+		<div class="row music-contrl-bar">
+			<div class="col">
+				<span class="prev">
+					<i class="ion ion-ios-skipbackward"></i>
+				</span>
+			</div>
+			<div class="col">
+				<span class="play" ng-click="play()" ng-if="!currentSong.playing">
+					<i class="ion ion-play"></i>
+				</span>
+				<span class="play" ng-click="pause()" ng-if="currentSong.playing">
+					<i class="ion ion-pause"></i>
+				</span>
+			</div>
+			<div class="col">
+				<span class="next">
+					<i class="ion ion-ios-skipforward"></i>
+				</span>
+			</div>
+		</div>
+		<div style="display:none">
+			<audio id="audio" src="{{currentSong.song.source}}" controls="controls">
+			</audio>
+		</div>
+    </div>
+</ion-view>

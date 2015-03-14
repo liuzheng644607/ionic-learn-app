@@ -1,0 +1,24 @@
+<ion-view title="{{vm.detailData.name}}">
+	<ion-nav-bar class="bar-positive nav-title-slide-ios7">
+	    <ion-nav-buttons side="left">
+	        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+	        </button>
+	    </ion-nav-buttons>
+	</ion-nav-bar>
+    <ion-content class="has-header">
+        <ion-slide-box auto-play="true" slide-interval="2000">
+          <ion-slide ng-repeat="pic in vm.detailData.pictures track by $index">
+            <div class="fishing-pic-box">
+              <img ng-src="{{pic}}">
+            </div>
+          </ion-slide>
+        </ion-slide-box>
+        <div class="button-bar">
+          <a href="tel:{{vm.detailData.tel}}" class="button button-outline button-positive icon-left ion-ios-telephone-outline">电话</a>
+          <a href="javascript:;" class="button button-outline button-positive icon-right ion-ios-location-outline">地图</a>
+        </div>
+        <div class="padding">
+          
+        </div>
+    </ion-content>
+</ion-view>

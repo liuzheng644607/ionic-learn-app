@@ -1,0 +1,64 @@
+<ion-view title="首页">
+	<ion-nav-bar class="bar-positive nav-title-slide-ios7">
+	    <ion-nav-buttons side="left">
+	        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+	        </button>
+	    </ion-nav-buttons>
+	</ion-nav-bar>
+    <ion-content class="has-header">
+        <ion-list>
+            <div class="item item-input-inset">
+                <a class="item-input-wrapper" href="#/app/search">
+                    <i class="icon ion-ios-search placeholder-icon"></i>
+                    <input type="search" placeholder="搜索">
+                </a>
+            </div>
+            <div class="row">
+              <div class="col txt-center">
+                  <a ng-href="#/app/type" class="button button-clear button-positive">斤塘</a>
+              </div>
+              <div class="col txt-center">
+                  <a ng-href="#/app/type" class="button button-clear button-positive">野塘</a>
+              </div>
+              <div class="col txt-center">
+                  <a ng-href="#/app/type" class="button button-clear button-positive">天塘</a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col txt-center">
+                  <a ng-href="#/app/type" class="button button-clear button-positive">黑坑</a>
+              </div>
+              <div class="col txt-center">
+                  <a ng-href="#/app/type" class="button button-clear button-positive">水库/湖</a>
+              </div>
+              <div class="col txt-center">
+                  <a ng-href="#/app/type" class="button button-clear button-positive">江河</a>
+              </div>
+            </div>
+            <ion-item nav-clear menu-close class="item item-icon-right color-positive" href="#/app/home">
+                <i class="icon ion-ios-arrow-right"></i> 附近钓场
+            </ion-item>
+            <ion-item ng-repeat="nearbyItem in vm.nearbyList" class="item-thumbnail-left item-thumbnail-right" ng-href="#/app/detail/{{nearbyItem.id}}">
+                <img ng-src="{{nearbyItem.thumb}}" style="width:80px; height:80px; border-radius:5px">
+                <h2>{{nearbyItem.name}}</h2>
+                <p class="ranks">
+                    <i class="icon ion-ios-heart red-heart">{{nearbyItem.rank}}</i>
+                </p>
+                <p class="tags">
+                    <i ng-repeat="tag in nearbyItem.tags" class="tag">{{tag}}</i>
+                </p>
+                <p>
+                    <span class="list-address">{{nearbyItem.address}}</span>
+                </p>
+                <div class="right-box">
+                    <div>
+                        <span class="fee">收费</span>
+                    </div>
+                    <div class="distance-bar">
+                        <span class="distance">32Km</span>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

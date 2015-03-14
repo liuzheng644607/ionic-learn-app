@@ -8,6 +8,7 @@
 @assertive:                       #ef473a;
 @royal:                           #886aea;
 @dark:                            #444;
+@main:#359DDA;
 html{
 	-webkit-font-smoothing: none;
 	-webkit-text-size-adjust: none;
@@ -34,7 +35,7 @@ html{
 	text-align: center;
 }
 .color-positive{
-	color: #359DDA;
+	color: @main;
 }
 .color-gray{
 	color: #666;
@@ -63,7 +64,14 @@ html{
 	font-size: 10px;
 	color: #777
 }
-
+.label-mix(@color){
+	border: 1px solid @color;
+	color: @color;
+	border-radius: 3px;
+	padding: 2px 4px;
+	font-size: 12px;
+	margin-right: 2px;
+}
 // 价格和距离
 .right-box{
 	position: absolute;
@@ -73,11 +81,7 @@ html{
 	height: 80px;
 	text-align: right;
 	.fee{
-		border: 1px solid @energized;
-		color: @energized;
-		border-radius: 3px;
-		padding: 2px 4px;
-		font-size: 12px;
+		.label-mix(@energized);
 	}
 	.distance-bar{
 		margin-top: 10px;
@@ -86,6 +90,29 @@ html{
 		color: @assertive;
 		font-size: 20px;
 	}
+}
+.search-item{
+	.item-content{
+		padding-right: 120px;
+	}
+	.search-item-right{
+		position: absolute;
+		text-align: right;
+		right: 10px;
+		top: 0px;
+		width: 100px;
+		height: 100%;
+	}
+}
+
+.fishing-type{
+	.label-mix(@positive);
+}
+.fishing-tag{
+	.label-mix(@main)
+}
+.fishing-price{
+	color: red;
 }
 .hide-bar{
 	transition:all .3s;
@@ -108,4 +135,9 @@ html{
 		height: 240px;
 		display: block;
 	}
+}
+.sign-title{
+	font-size:20px;
+	padding:8px 16px;
+	color:@main
 }

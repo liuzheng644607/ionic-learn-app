@@ -38,7 +38,7 @@
             <ion-item nav-clear menu-close class="item item-icon-right color-positive" href="#/app/home">
                 <i class="icon ion-ios-arrow-right"></i> 附近钓场
             </ion-item>
-            <ion-item ng-repeat="nearbyItem in vm.nearbyList" class="item-thumbnail-left item-thumbnail-right" ng-href="#/app/detail/{{nearbyItem.id}}">
+            <ion-item ng-repeat="nearbyItem in vm.nearbyList" class="item-thumbnail-left item-thumbnail-right" ng-href="#/app/home/detail/{{nearbyItem.id}}">
                 <img ng-src="{{nearbyItem.thumb}}" style="width:80px; height:80px; border-radius:5px">
                 <h2>{{nearbyItem.name}}</h2>
                 <p class="ranks">
@@ -55,10 +55,16 @@
                         <span class="fee">收费</span>
                     </div>
                     <div class="distance-bar">
-                        <span class="distance">32Km</span>
+                        <span class="distance">{{nearbyItem.distance}}</span>
                     </div>
                 </div>
             </ion-item>
         </ion-list>
+        <ion-infinite-scroll on-infinite="vm.loadMore()"
+                                    icon="ion-loading-a"
+                                    ng-if="!noMoreItems"
+                                    spinner="bubbles"
+                                distance="10%">
+        </ion-infinite-scroll>
     </ion-content>
 </ion-view>

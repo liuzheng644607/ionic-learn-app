@@ -11,7 +11,26 @@
         </a>
     </ion-nav-bar>
     <ion-content class="has-header">
-        <div class="list">
-        </div>
+        <ion-refresher on-refresh="vm.doRefresh()">
+        </ion-refresher>
+        <ion-list>
+            <ion-item ng-href="#/app/home/detail" class="search-item" ng-repeat="item in vm.searchData">
+                <h2>{{item.name}}</h2>
+                <div class="search-item-right">
+                    <p class="tags padding-top">
+                        <i ng-repeat="tag in item.tags" class="tag">{{tag}}</i>
+                    </p>
+                    <p>
+                        <span class="list-address">{{item.distance}}</span>
+                    </p>
+                </div>
+            </ion-item>
+        </ion-list>
+        <ion-infinite-scroll on-infinite="vm.loadMoreItems()" 
+                                    icon="ion-loading-a"
+                                    ng-if="!noMoreItems"
+                                    spinner="bubbles"
+                                distance="10%">
+        </ion-infinite-scroll>
     </ion-content>
 </ion-view>

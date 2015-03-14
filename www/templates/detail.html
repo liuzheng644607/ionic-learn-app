@@ -17,8 +17,46 @@
           <a href="tel:{{vm.detailData.tel}}" class="button button-outline button-positive icon-left ion-ios-telephone-outline">电话</a>
           <a href="javascript:;" class="button button-outline button-positive icon-right ion-ios-location-outline">地图</a>
         </div>
-        <div class="padding">
-          
+        <div class="list">
+          <label class="item item-input item-clear">
+            <span class="input-label">类型</span>
+            <span class="fishing-type">{{vm.detailData.type}}</span>
+          </label>
+          <label class="item item-input">
+            <span class="input-label">特色</span>
+            <span class="fishing-tag" ng-repeat="tag in vm.detailData.tags">{{tag}}</span>
+          </label>
+          <label class="item item-input">
+            <span class="input-label">收费</span>
+            <span class="fishing-price">{{vm.detailData.price}}</span>
+          </label>
+          <div class="item item-text-wrap">
+            <span>详细描述</span>
+            <p>{{vm.detailData.detail}}</p>
+          </div>
+        </div>
+
+        <!-- 钓友签到 -->
+        <div class="list" ng-controller="SignDataCtrl">
+          <p class="sign-title"><i class="ion ion-paper-airplane"></i><span>钓友签到</span></p>
+          <div ng-repeat="sign in vm.signData" class="item item-avatar item-text-wrap">
+            <img ng-src="{{sign.avatar}}">
+            <h2>{{sign.nickname}}</h2>
+            <p>{{sign.content}}</p>
+            <!-- 图片 -->
+            <div class="row" style="margin-left:-10px;">
+              <div class="col" ng-repeat="pic in sign.pictures track by $index">
+                <img ng-src="{{pic}}" width="100%">
+              </div>
+            </div>
+            <p style="text-align:right">{{sign.publishTime}}</p>
+          </div>
+          <ion-infinite-scroll on-infinite="vm.loadMore()"
+                                    icon="ion-loading-a"
+                                    ng-if="!noMoreItems"
+                                    spinner="bubbles"
+                                distance="10%">
+          </ion-infinite-scroll>
         </div>
     </ion-content>
 </ion-view>

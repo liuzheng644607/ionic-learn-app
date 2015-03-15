@@ -163,93 +163,71 @@ ionicApp.controller("SearchCtrl",function($scope,$http,$timeout){
 
 
 // 听音乐
-ionicApp.controller("MusicCtrl",function($scope){
+ionicApp.controller("MusicCtrl",function($scope,$timeout){
 	// 歌曲列表
 	$scope.MusicList=[{
-		title:"画沙",
-		source:"music/pm.mp3",
-		singer:"袁咏琳",
-		specialPic:"img/1.jpg"
-	},{
-		title:"十三号星期舞",
-		source:"music/pm.mp3",
-		singer:"蔡依林",
-		specialPic:"img/1.jpg"
-	},{
+		id:0,
 		title:"泡沫",
-		source:"music/pm.mp3",
-		singer:"蔡依林",
-		specialPic:"img/1.jpg"
+		source:"music/泡沫.mp3",
+		singer:"邓紫棋",
+		lrc:"",
+		specialPic:"music/泡沫.jpg"
 	},{
-		title:"느낌 아니까",
-		source:"music/pm.mp3",
-		singer:"T-ara",
-		specialPic:"img/1.jpg"
-	},{
-		title:"GALAXY SUPERNOVA",
-		source:"music/pm.mp3",
-		singer:"少女时代",
-		specialPic:"img/1.jpg"
-	},{
-		title:"나 어떡해",
-		source:"music/pm.mp3",
-		singer:"T-ara",
-		specialPic:"img/1.jpg"
-	},{
-		title:"龙卷风",
-		source:"music/pm.mp3",
-		singer:"周杰伦",
-		specialPic:"img/1.jpg"
-	},{
-		title:"十三号星期舞",
-		source:"music/pm.mp3",
-		singer:"蔡依林",
-		specialPic:"img/1.jpg"
-	},{
-		title:"泡沫",
-		source:"music/pm.mp3",
-		singer:"蔡依林",
-		specialPic:"img/1.jpg"
-	},{
-		title:"느낌 아니까",
-		source:"music/pm.mp3",
-		singer:"T-ara",
-		specialPic:"img/1.jpg"
-	},{
-		title:"GALAXY SUPERNOVA",
-		source:"music/pm.mp3",
-		singer:"少女时代",
-		specialPic:"img/1.jpg"
+		id:1,
+		title:"살만찌고",
+		source:"music/4minute - 살만찌고.mp3",
+		singer:"4minute",
+		lrc:"music/4minute - 살만찌고.lrc",
+		specialPic:"music/4minute - 살만찌고.jpg"
 	}]
 	// 当前正在播放的歌曲
 	$scope.currentSong={
-		song:$scope.MusicList[0],
+		song:{},
 		currTime:0,
 		totalTime:0,
-		progress:0,
-		playing:false
+		progress:0
 	};
+	$scope.playing=false;
 	var audio=document.getElementById("audio");
 	$scope.play=function(){
 		audio.play();
-		$scope.currentSong.playing=true;
 	}
 	$scope.pause=function(){
 		audio.pause();
-		$scope.currentSong.playing=false;
 	}
-	audio.addEventListener("loadedmetadata",function(e){
-		$scope.currentSong.totalTime=audio.duration;
+	audio.addEventListener("play",function(){
+		$scope.$apply(function() {
+			$scope.playing = true;
+		});
+	},false);
+	audio.addEventListener("pause",function(){
+		$scope.$apply(function() {
+			$scope.playing = false;
+		});
+	},false);
+	audio.addEventListener("durationchange",function(e){
+		$timeout(function(){
+			$scope.currentSong.totalTime=audio.duration;
+		},10)
 	},false);
 	audio.addEventListener("timeupdate",function(e){
-		// console.log(this.currentTime);
 		$scope.$apply(function() {
 			$scope.currentSong.currTime=audio.currentTime;
 			$scope.currentSong.progress=$scope.currentSong.currTime/$scope.currentSong.totalTime;
 		})
-		
-	},false)
-	
+	},false);
+
+	$scope.loadMusic=function(idx){
+		$scope.currentSong={
+			song:$scope.MusicList[idx],
+			currTime:0,
+			totalTime:0,
+			progress:0
+		}
+		$timeout(function(){
+			$scope.play();
+		},100);
+	}
 })
 .filter('formattime', [
 	function() {

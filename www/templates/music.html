@@ -5,8 +5,10 @@
           	<ion-content>
 	          	<div class="music-list-box">
 	          		<div class="list">
-	          			<div ng-repeat="song in MusicList" class="item item-icon-right pading-artistic color-light">
-			                <i class="icon ion-ios-musical-note"></i>
+	          			<div ng-repeat="song in MusicList track by $index" ng-class="{true:'color-positive',false:'color-light'}[song.id==currentSong.song.id]" class="item item-icon-right pading-artistic" ng-click="loadMusic($index)">
+          					<i class="icon ion-ios-musical-note" ng-if="song.id!==currentSong.song.id"></i>
+          					<i class="icon ion-ios-pause" ng-if="!playing&&song.id==currentSong.song.id"></i>
+          					<i class="icon ion-ios-play" ng-if="playing&&song.id==currentSong.song.id"></i>
 			                <span class="artistic">{{song.singer}}</span>
 			                {{song.title}}
 			            </div>
@@ -21,7 +23,7 @@
           			<h3 class="color-light">{{currentSong.song.title}}</h3>
           			<h5 class="color-light">—{{currentSong.song.singer}}—</h5>
           			<div class="special-picture">
-          				<img ng-class="{true:'run',false:'pause'}[currentSong.playing]" ng-src="{{currentSong.song.specialPic}}">
+          				<img ng-class="{true:'run',false:'pause'}[playing]" ng-src="{{currentSong.song.specialPic}}">
           			</div>
           		</div>
           	<ion-content>
@@ -31,9 +33,11 @@
     <div class="music-footer">
     	<div class="music-prog-bar">
     		<span class="current-time">{{currentSong.currTime|formattime}}</span>
-    		<div class="progress-bar">
-    			<span class="current-line" style="width:{{currentSong.progress*100}}%"></span>
-    			<span class="time-handle"  style="left:{{currentSong.progress*100}}%"></span>
+    		<div class="prog-outer">
+    			<div class="progress-bar">
+	    			<span class="current-line" style="width:{{currentSong.progress*100}}%"></span>
+	    			<span class="time-handle"  style="left:{{currentSong.progress*100}}%"></span>
+	    		</div>
     		</div>
     		<span class="total-time">{{currentSong.totalTime|formattime}}</span>
 		</div>
@@ -44,10 +48,10 @@
 				</span>
 			</div>
 			<div class="col">
-				<span class="play" ng-click="play()" ng-if="!currentSong.playing">
+				<span class="play" ng-click="play()" ng-if="!playing">
 					<i class="ion ion-play"></i>
 				</span>
-				<span class="play" ng-click="pause()" ng-if="currentSong.playing">
+				<span class="play" ng-click="pause()" ng-if="playing">
 					<i class="ion ion-pause"></i>
 				</span>
 			</div>

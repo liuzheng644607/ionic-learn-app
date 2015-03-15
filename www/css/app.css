@@ -140,10 +140,19 @@ html {
   padding: 0 50px;
   position: relative;
 }
+.music-footer .music-prog-bar .prog-outer {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 0 8px;
+  box-sizing: border-box;
+}
 .music-footer .music-prog-bar .current-time,
 .music-footer .music-prog-bar .total-time {
   position: absolute;
   line-height: 20px;
+  top: 0;
   color: #fff;
 }
 .music-footer .music-prog-bar .total-time {

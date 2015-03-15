@@ -43,20 +43,20 @@
 		</div>
 		<div class="row music-contrl-bar">
 			<div class="col">
-				<span class="prev">
+				<span class="prev" ng-click="prev()" title="上一首">
 					<i class="ion ion-ios-skipbackward"></i>
 				</span>
 			</div>
 			<div class="col">
-				<span class="play" ng-click="play()" ng-if="!playing">
+				<span class="play" ng-click="play()" ng-if="!playing" title="播放">
 					<i class="ion ion-play"></i>
 				</span>
-				<span class="play" ng-click="pause()" ng-if="playing">
+				<span class="play" ng-click="pause()" ng-if="playing" title="暂停">
 					<i class="ion ion-pause"></i>
 				</span>
 			</div>
 			<div class="col">
-				<span class="next">
+				<span class="next" ng-click="next()" title="下一首">
 					<i class="ion ion-ios-skipforward"></i>
 				</span>
 			</div>

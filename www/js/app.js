@@ -179,10 +179,80 @@ ionicApp.controller("MusicCtrl",function($scope,$timeout){
 		singer:"4minute",
 		lrc:"music/4minute - 살만찌고.lrc",
 		specialPic:"music/4minute - 살만찌고.jpg"
+	},{
+		id:2,
+		title:"느낌 아니까",
+		source:"music/T-ara - 느낌 아니까.mp3",
+		singer:"T-ara",
+		lrc:"music/T-ara - 느낌 아니까.lrc",
+		specialPic:"music/T-ara - 느낌 아니까.jpg"
+	},{
+		id:3,
+		title:"Something",
+		source:"music/Girl's Day - Something.mp3",
+		singer:"Girl's Day",
+		lrc:"music/Girl's Day - Something.lrc",
+		specialPic:"music/Girl's Day - Something.jpg"
+	},{
+		id:4,
+		title:"布拉格广场",
+		source:"music/蔡依林 - 布拉格广场.mp3",
+		singer:"蔡依林",
+		lrc:"music/蔡依林 - 布拉格广场.lrc",
+		specialPic:"music/蔡依林 - 布拉格广场.jpg"
+	},{
+		id:5,
+		title:"龙卷风",
+		source:"music/周杰伦 - 龙卷风.mp3",
+		singer:"周杰伦",
+		lrc:"music/周杰伦 - 龙卷风.lrc",
+		specialPic:"music/周杰伦 - 龙卷风.jpg"
+	},{
+		id:6,
+		title:"泡沫",
+		source:"music/泡沫.mp3",
+		singer:"邓紫棋",
+		lrc:"",
+		specialPic:"music/泡沫.jpg"
+	},{
+		id:7,
+		title:"살만찌고",
+		source:"music/4minute - 살만찌고.mp3",
+		singer:"4minute",
+		lrc:"music/4minute - 살만찌고.lrc",
+		specialPic:"music/4minute - 살만찌고.jpg"
+	},{
+		id:8,
+		title:"느낌 아니까",
+		source:"music/T-ara - 느낌 아니까.mp3",
+		singer:"T-ara",
+		lrc:"music/T-ara - 느낌 아니까.lrc",
+		specialPic:"music/T-ara - 느낌 아니까.jpg"
+	},{
+		id:9,
+		title:"Something",
+		source:"music/Girl's Day - Something.mp3",
+		singer:"Girl's Day",
+		lrc:"music/Girl's Day - Something.lrc",
+		specialPic:"music/Girl's Day - Something.jpg"
+	},{
+		id:10,
+		title:"布拉格广场",
+		source:"music/蔡依林 - 布拉格广场.mp3",
+		singer:"蔡依林",
+		lrc:"music/蔡依林 - 布拉格广场.lrc",
+		specialPic:"music/蔡依林 - 布拉格广场.jpg"
+	},{
+		id:11,
+		title:"龙卷风",
+		source:"music/周杰伦 - 龙卷风.mp3",
+		singer:"周杰伦",
+		lrc:"music/周杰伦 - 龙卷风.lrc",
+		specialPic:"music/周杰伦 - 龙卷风.jpg"
 	}]
 	// 当前正在播放的歌曲
 	$scope.currentSong={
-		song:{},
+		song:$scope.MusicList[parseInt(($scope.MusicList.length)*Math.random())],
 		currTime:0,
 		totalTime:0,
 		progress:0
@@ -194,6 +264,53 @@ ionicApp.controller("MusicCtrl",function($scope,$timeout){
 	}
 	$scope.pause=function(){
 		audio.pause();
+	}
+	$scope.next=function(){
+		var idx=getCurrIdx();
+		if (idx<0) return;
+		if (idx===$scope.MusicList.length-1) {
+			idx=0;
+		}else{
+			idx+=1;
+		}
+		goByIdx(idx);
+	}
+	$scope.prev=function(){
+		var idx=getCurrIdx();
+		if (idx<0) return;
+		if (idx===0) {
+			idx=$scope.MusicList.length-1;
+		}else{
+			idx-=1;
+		}
+		goByIdx(idx);
+	}
+
+	// 播放指定位置的音乐
+	function goByIdx(idx){
+		$scope.currentSong={
+			song:$scope.MusicList[idx],
+			currTime:0,
+			totalTime:0,
+			progress:0
+		}
+		$timeout(function(){
+			$scope.play();
+		},100);
+	}
+	// 获得当前播放的歌曲在列表中的索引
+	function getCurrIdx(){
+		var currSong=$scope.currentSong.song;
+		var songList=$scope.MusicList;
+		var len=songList.length;
+		var currIdx=-1;
+		for (var i = 0; i < len; i++) {
+			if (currSong==songList[i]) {
+				currIdx=i;
+				return currIdx;
+			}
+		}
+		return currIdx;
 	}
 	audio.addEventListener("play",function(){
 		$scope.$apply(function() {
@@ -218,15 +335,15 @@ ionicApp.controller("MusicCtrl",function($scope,$timeout){
 	},false);
 
 	$scope.loadMusic=function(idx){
-		$scope.currentSong={
-			song:$scope.MusicList[idx],
-			currTime:0,
-			totalTime:0,
-			progress:0
-		}
-		$timeout(function(){
-			$scope.play();
-		},100);
+		if ($scope.MusicList[idx]===$scope.currentSong.song) {
+			if ($scope.playing) {
+				$scope.pause();
+			}else{
+				$scope.play();
+			}
+			return;
+		};
+		goByIdx(idx);
 	}
 })
 .filter('formattime', [

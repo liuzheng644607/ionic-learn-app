@@ -249,10 +249,10 @@ html {
   padding-right: 150px;
 }
 .music-bg .special-picture {
-  width: 240px;
-  height: 240px;
+  width: 280px;
+  height: 280px;
   border-radius: 50%;
-  border: 4px solid rgba(153, 151, 151, 0.71);
+  border: 8px solid rgba(255, 255, 255, 0.4);
   margin: 20px auto;
 }
 .music-bg .special-picture img {

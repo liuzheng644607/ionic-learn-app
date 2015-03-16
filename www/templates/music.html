@@ -30,13 +30,13 @@
           </ion-slide>
         </ion-slide-box>
     </div>
-    <div class="music-footer">
+    <div class="music-footer" id="music-control">
     	<div class="music-prog-bar">
     		<span class="current-time">{{currentSong.currTime|formattime}}</span>
     		<div class="prog-outer">
     			<div class="progress-bar">
 	    			<span class="current-line" style="width:{{currentSong.progress*100}}%"></span>
-	    			<span class="time-handle"  style="left:{{currentSong.progress*100}}%"></span>
+	    			<span id="time-control-dot" class="time-handle"  style="left:{{currentSong.progress*100}}%"></span>
 	    		</div>
     		</div>
     		<span class="total-time">{{currentSong.totalTime|formattime}}</span>
